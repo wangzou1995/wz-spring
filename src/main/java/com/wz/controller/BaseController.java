@@ -1,5 +1,6 @@
 package com.wz.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wz.base.annotation.WZAutowired;
 import com.wz.base.annotation.WZController;
 import com.wz.base.annotation.WZRequestMapping;
@@ -12,9 +13,13 @@ public class BaseController {
     @WZAutowired
     public BaseService baseService;
     @WZRequestMapping(value = "/api.json")
-    public String add (@WZRequestParam("id") int id) {
+    public Object add (@WZRequestParam("id") int id) {
         baseService.add();
         System.out.println(id);
-        return String.valueOf(id);
+        JSONObject object = new JSONObject();
+        object.put("success",true);
+        object.put("code",1);
+        object.put("data", id);
+        return object;
     }
 }
